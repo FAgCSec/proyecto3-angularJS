@@ -1,55 +1,96 @@
 .tareas-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
-  background: white;
-  border-radius: var(--radius-2xl);
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fff9 100%);
+  border-radius: 30px;
+  box-shadow: 0 25px 70px rgba(76, 175, 80, 0.25), 
+              0 0 0 1px rgba(76, 175, 80, 0.1),
+              inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  overflow: visible;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  border: 3px solid transparent;
+  position: relative;
+}
+
+.tareas-container::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #4CAF50, #66BB6A, #81C784);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: -1;
+}
+
+.tareas-container:hover::before {
+  opacity: 1;
 }
 
 .tareas-container:hover {
-  box-shadow: var(--shadow-xl);
-  transform: translateY(-2px);
+  box-shadow: 0 35px 90px rgba(76, 175, 80, 0.45);
+  transform: translateY(-8px) scale(1.02);
 }
 
 .card-header {
-  background: linear-gradient(135deg, #4CAF50, #66BB6A);
+  background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 25%, #66BB6A 50%, #81C784 75%, #A5D6A7 100%);
   color: white;
-  padding: var(--space-6);
+  padding: var(--space-8) var(--space-6);
   text-align: center;
   position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(76, 175, 80, 0.4);
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 }
 
 .card-header::before {
-  content: '';
+  content: '✓';
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E");
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%) rotate(-15deg);
+  font-size: 120px;
+  opacity: 0.1;
+  font-weight: bold;
+}
+
+.card-header::after {
+  content: '✓';
+  position: absolute;
+  top: 50%;
+  right: 10%;
+  transform: translateY(-50%) rotate(15deg);
+  font-size: 120px;
+  opacity: 0.1;
+  font-weight: bold;
 }
 
 .tareas-container h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 900;
   margin: 0;
   position: relative;
   z-index: 1;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .exercise-badge {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.95);
+  color: #2E7D32;
   backdrop-filter: blur(10px);
-  border-radius: var(--radius-lg);
-  padding: var(--space-2) var(--space-4);
-  font-size: var(--text-sm);
-  font-weight: 600;
+  border-radius: 50px;
+  padding: var(--space-2) var(--space-5);
+  font-size: var(--text-xs);
+  font-weight: 900;
   margin-bottom: var(--space-4);
   display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.5);
 }
 
 .card-body {
@@ -83,8 +124,8 @@
   outline: none;
   border-color: #4CAF50;
   background: white;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-  transform: translateY(-1px);
+  box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15), 0 4px 12px rgba(76, 175, 80, 0.2);
+  transform: translateY(-2px);
 }
 
 .input-icon {
@@ -131,7 +172,9 @@
   padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-lg);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .tasks-list {
@@ -143,12 +186,34 @@
 .task-item {
   display: flex;
   align-items: center;
-  padding: var(--space-4);
-  background: var(--gray-50);
-  border: 2px solid var(--gray-100);
-  border-radius: var(--radius-lg);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: var(--space-5);
+  background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+  border: 3px solid transparent;
+  border-radius: 20px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   animation: slideInLeft 0.5s ease-out both;
+  position: relative;
+  box-shadow: 0 5px 20px rgba(76, 175, 80, 0.1);
+}
+
+.task-item::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #4CAF50, #81C784);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: -1;
+}
+
+.task-item:hover {
+  transform: translateX(8px) scale(1.03);
+  box-shadow: 0 15px 40px rgba(76, 175, 80, 0.3);
+}
+
+.task-item:hover::before {
+  opacity: 1;
 }
 
 @keyframes slideInLeft {
